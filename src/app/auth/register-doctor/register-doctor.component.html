@@ -1,0 +1,70 @@
+<div class="container active m-auto my-5 p-2" id="container">
+    <div class="form-container sign-up ">
+        <form [formGroup]="registerForm" (ngSubmit)="register()" >
+            <h1 class="mb-2">Create Account</h1>
+           
+            <input type="text" placeholder="bio" name="bio" formControlName="bio">
+            @if(registerForm.get('bio')?.invalid && (registerForm.get('bio')?.touched || submit)){
+                <div class="alert alert-danger w-100 p-1 ">
+
+                @if(registerForm.get('bio')?.hasError('required')){
+                    <span class="error fs-6">bio is required</span>
+                }
+                </div>
+            }
+            <input type="text" placeholder="specialization" name="specialization" formControlName="specialization">
+            @if (registerForm.get('specialization')?.invalid && (registerForm.get('specialization')?.touched || submit)) {
+                <div class="alert alert-danger w-100 p-1 ">
+
+                @if(registerForm.get('specialization')?.hasError('required')){
+                    <span class="error fs-6">specialization is required</span>
+                }
+               
+                </div>
+            }
+            <input type="text" placeholder="clinic_address" name="clinic_address" formControlName="clinic_address">
+            @if (registerForm.get('clinic_address')?.invalid && (registerForm.get('clinic_address')?.touched || submit)) {
+                <div class="alert alert-danger w-100 p-1 ">
+
+                @if(registerForm.get('clinic_address')?.hasError('required')){
+                    <span class="error fs-6">clinic_address is required</span>
+                }
+               
+                </div>
+            }
+            <input type="text" placeholder="phone" name="phone"  formControlName="phone">
+            @if (registerForm.get('phone')?.invalid && (registerForm.get('phone')?.touched || submit)) {
+                <div class="alert alert-danger w-100 p-1 ">
+
+                @if(registerForm.get('phone')?.hasError('required')){
+                    <span class="error fs-6">phone is required</span>
+                }
+                </div>
+            }
+            <input type="number" placeholder="fee" name="fee"  formControlName="fee">
+            @if (registerForm.get('fee')?.invalid && (registerForm.get('fee')?.touched || submit)) {
+                <div class="alert alert-danger w-100 p-1 ">
+
+                @if(registerForm.get('fee')?.hasError('required')){
+                    <span class="error fs-6">fee is required</span>
+                }
+                </div>
+            }
+            <button type="submit">Sign Up</button>
+            <!-- <button type="submit">continue as a doctor</button> -->
+
+        </form>
+    </div>
+    
+    <div class="toggle-container">
+        <div class="toggle">
+            <div class="toggle-panel toggle-left">
+                <h1  class="text-light">Welcome Doctor!</h1>
+                <p>Enter your addition personal details to use all of site features</p>
+                <button class="hidden" routerLink="/login" id="login">Sign In</button>
+            </div>
+           
+          
+        </div>
+    </div>
+</div>

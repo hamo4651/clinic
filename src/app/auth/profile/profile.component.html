@@ -1,0 +1,76 @@
+<div
+  class="container w-50 border bg-white mx-auto p-5 w-75"
+  style="padding-top: 200px"
+  style="margin-top: 100px"
+>
+  <div class="row">
+    <div class="col-xl-12">
+      <div class="card" *ngIf="userInfo">
+        <div class="card-body pb-0">
+          <div class="row align-items-center">
+            <div class="col-md-3">
+              <div class="text-center border-end" *ngIf="userInfo">
+                <img
+                  *ngIf="userInfo.image; else defaultImage"
+                  src="{{ userInfo.image }}"
+                  alt="Profile Image"
+                  class="img-fluid avatar-xxl rounded-circle"
+                />
+
+                <ng-template #defaultImage>
+                  <img
+                    src="/avatar.png"
+                    alt="Default Image"
+                    class="img-fluid avatar-xxl rounded-circle"
+                  />
+                </ng-template>
+                <h4
+                  class="text-primary font-size-30 font-weight-bold mt-3 mb-2"
+                >
+                  {{ userInfo.name }}
+                </h4>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <div class="ms-3">
+                <div>
+                  <div class="d-flex justify-content-between">
+                    <h4 class="card-title mb-4 fs-2">Biography</h4>
+                    <!-- @if(ownerId){
+                      <a [routerLink]="['/edit-Owner-profile', userInfo.id]"
+                        class="btn btn-secondary d-flex roboto-regular rounded align-items-center me-3">
+                        <span class="ms-1 fs-5">Edit Profile</span>
+                      </a>
+                      } -->
+                  </div>
+                  <p class="text-dark fs-4">
+                    <strong>Email:</strong> {{ userInfo.email }}
+                  </p>
+                  @if(userInfo.doctor){
+                  <p class="text-dark fs-4">
+                    <strong>Phone:</strong> {{ userInfo.doctor.phone }}
+                  </p>
+                  <p class="text-dark fs-4">
+                    <strong>clinic_address:</strong>
+                    {{ userInfo.doctor.clinic_address }}
+                  </p>
+                  <p class="text-dark fs-4">
+                    <strong>bio</strong> {{ userInfo.doctor.bio }}
+                  </p>
+                  <p class="text-dark fs-4">
+                    <strong>specialization:</strong>
+                    {{ userInfo.doctor.specialization }}
+                  </p>
+                  <p class="text-dark fs-4">
+                    <strong>fee:</strong> {{ userInfo.doctor.fee }}
+                  </p>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
