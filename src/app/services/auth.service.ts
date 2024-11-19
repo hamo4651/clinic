@@ -19,7 +19,10 @@ export class AuthService {
     this.userName.next(name);
     this.userRole.next(role);
   }
-
+  setRole(role: string) {
+    localStorage.setItem('role', role);
+    this.userRole.next(role);
+  }
   clearUser() {
     localStorage.removeItem('name');
     localStorage.removeItem('role');
@@ -79,6 +82,8 @@ export class AuthService {
           name
           email
           role
+          doctor{
+          id}
         }
         token
       }

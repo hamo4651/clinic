@@ -27,7 +27,11 @@ export class LoginComponent {
           localStorage.setItem('name', response.data.Login.user.name)
           localStorage.setItem('id', response.data.Login.user.id)
           localStorage.setItem('role', response.data.Login.user.role)
-            this.authService.setUser(response.data.Login.user.name, response.data.Login.user.role);
+          if( response.data.Login.user.role == 'doctor'){
+            localStorage.setItem('doctor_id', response.data.Login.user.doctor.id)
+
+          }
+          this.authService.setUser(response.data.Login.user.name, response.data.Login.user.role);
           this.route.navigate(['/profile'])
           },
           

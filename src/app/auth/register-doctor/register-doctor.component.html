@@ -12,7 +12,12 @@
                 }
                 </div>
             }
-            <input type="text" placeholder="specialization" name="specialization" formControlName="specialization">
+            <select name="specialization" class="form-select" id="specialization" formControlName="specialization">
+                <option value="" disabled selected>select specialization</option>
+                  @for (specialization of specializations; track $index) {
+                    <option class="fs-6 px-1 text-dark" [value]="specialization">{{specialization}}</option>
+                  }
+            </select>
             @if (registerForm.get('specialization')?.invalid && (registerForm.get('specialization')?.touched || submit)) {
                 <div class="alert alert-danger w-100 p-1 ">
 

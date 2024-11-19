@@ -88,9 +88,8 @@
               <div class="dropdown-menu" aria-labelledby="triggerId">
                 <a class="dropdown-item " routerLink="/profile">Profile</a>
                 <button (click)="logout()" class="dropdown-item " >Logout</button>
-                @if(role=="user"){
+                @if(role==="user"){
                   <a routerLink="/registerDoctor" class="dropdown-item ">registerDoctor</a>
-
                 }
               </div>
             </div>

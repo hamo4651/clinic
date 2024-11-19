@@ -10,6 +10,9 @@ import { NotAuthorizedComponent } from './auth/not-authorized/not-authorized.com
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
 import { adminGuard } from './guard/admin.guard';
 import { NotFoundComponent } from './auth/not-found/not-found.component';
+import { SchedulesComponent } from './DoctorSchedule/schedules/schedules.component';
+import { scheduled } from 'rxjs';
+import { CreateScheduleComponent } from './DoctorSchedule/create-schedule/create-schedule.component';
 
 export const routes: Routes = [
     // //////////// Auth routes  ///////////
@@ -42,7 +45,17 @@ export const routes: Routes = [
         component:DashboardComponent,
         title: 'adminDashboard',canActivate:[adminGuard]
     }
-
+    ,
+    {
+        path: 'schedules',
+        component:SchedulesComponent
+        ,title:'schedules',canActivate:[authGuard]
+    },
+    {
+        path: 'create_schedule',
+        component:CreateScheduleComponent
+        ,title:'create_schedule',canActivate:[authGuard]
+    }
     // ////////// // Other routes //////////////
     ,{
         path: 'notauthorized',

@@ -1,0 +1,23 @@
+<!-- schedule.component.html -->
+<div class="schedule-container">
+    <h2>Doctor Schedules</h2>
+  
+    <div *ngIf="schedules && schedules.length > 0; else noSchedules" class="schedule-list">
+      <div *ngFor="let schedule of schedules" class="schedule-card">
+        <div class="schedule-header">
+          <h3>{{ schedule.day }} - {{ schedule.start_time }} to {{ schedule.end_time }}</h3>
+        </div>
+        <div class="doctor-info">
+          <h4>DR:-{{ schedule.doctor.user.name }} ({{ schedule.doctor.specialization }})</h4>
+          <p><strong>Clinic Address:</strong> {{ schedule.doctor.clinic_address }}</p>
+          <p><strong>Phone:</strong> {{ schedule.doctor.phone }}</p>
+        </div>
+      </div>
+    </div>
+  
+    <!-- If there are no schedules -->
+    <ng-template #noSchedules>
+      <p>No schedules available at the moment.</p>
+    </ng-template>
+  </div>
+  

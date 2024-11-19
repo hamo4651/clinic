@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
@@ -12,14 +12,19 @@ import { AuthService } from '../../services/auth.service';
 export class HeaderComponent {
   name: string | null = null;
   role: string | null = null;
-constructor(private authservice:AuthService,private router:Router){}
+constructor(private authservice:AuthService,private router:Router,private cdr: ChangeDetectorRef){}
 ngOnInit(){
+ this.update();
+}
+
+update(){
   this.authservice.userName$.subscribe((name) => {
     this.name = name;
   })
 
   this.authservice.userRole$.subscribe((role) => {
     this.role = role;
+    this.cdr.detectChanges();
   })
 }
   logout(){
@@ -32,6 +37,7 @@ ngOnInit(){
         console.log(response.data.Logout.message);
         if(response.data.Logout.message){
           this.router.navigate(['/login'])
+
         }
         
       }
@@ -42,5 +48,6 @@ ngOnInit(){
    localStorage.removeItem('name');
    localStorage.removeItem('id');
    localStorage.removeItem('role');
+   localStorage.removeItem('doctor_id');
   }
 }

@@ -24,6 +24,23 @@ submit=false;
       fee: [0,[Validators.required]],
     });
 }
+specializations: string[] = [
+  'Cardiologist',
+  'Dermatologist',
+  'Neurologist',
+  'Orthopedic Surgeon',
+  'Pediatrician',
+  'Gynecologist',
+  'Oncologist',
+  'Psychiatrist',
+  'Radiologist',
+  'Dentist',
+  'Anesthesiologist',
+  'Ophthalmologist',
+  'ENT Specialist',
+  'Urologist',
+  'Endocrinologist',
+];
 register(){
 this.submit=true;
 
@@ -37,8 +54,14 @@ if (this.registerForm.valid) {
   this.authService.registerDoctor(id,this.registerForm.value.bio,this.registerForm.value.specialization,
     this.registerForm.value.clinic_address,this.registerForm.value.phone,this.registerForm.value.fee).subscribe({
       next: (response: any) => {
-         console.log(response);
-         this.router.navigate(['/profile'])
+        if(response){
+          console.log(response);
+          
+        this.router.navigate(['/profile'])
+        localStorage.setItem('role', 'doctor')
+        this.authService.setRole('doctor')
+        localStorage.setItem('doctor_id', response.data.create_doctor.id)
+        }
          },
         
       error: (error) => {
