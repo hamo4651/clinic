@@ -1,1 +1,33 @@
-<p>my-schedule works!</p>
+<!-- my-schedule.component.html -->
+<div class="schedule-container my-5 ">
+    <h2>My Schedule in {{address}}</h2>
+  
+    <div *ngIf="schedules.length > 0; else noSchedules">
+      <table class="schedule-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let schedule of schedules">
+            <td>{{ schedule.day }}</td>
+            <td>{{ schedule.start_time }}</td>
+            <td>{{ schedule.end_time }}</td>
+            <td class="actions">
+              <a [routerLink]="['/updateschedule',schedule.id]"  class="btn btn-edit">Edit</a>
+              <button (click)="deleteSchedule(schedule.id)" class="btn btn-delete">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noSchedules>
+      <p>No schedules available.</p>
+    </ng-template>
+  </div>
+  

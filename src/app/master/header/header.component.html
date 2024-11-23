@@ -72,7 +72,11 @@
           <li class="nav-item">
             <a href="#contact" class="nav-link">Contact</a>
           </li>
+
           @if(name){
+            @if (role==="doctor") {
+              <li class="nav-item ms-2"><a routerLink="/create_schedule" class="nav-link">Create Your Schedule</a></li>
+             }
            <li class="nav-item ms-2">
             <div class="dropdown open">
               <a
@@ -90,6 +94,9 @@
                 <button (click)="logout()" class="dropdown-item " >Logout</button>
                 @if(role==="user"){
                   <a routerLink="/registerDoctor" class="dropdown-item ">registerDoctor</a>
+                }
+                @if(role==="doctor"){
+                  <a routerLink="/myschedule" class="dropdown-item ">My Schedule</a>
                 }
               </div>
             </div>

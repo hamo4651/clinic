@@ -27,8 +27,16 @@
                 @if(password.hasError('required')) {
                     <span class="error fs-6">Password is required</span>
                     }
-                   
+                  
                </div>
+           }
+           @if(submit){
+            <div class="alert alert-danger w-100 p-2 ">
+               @if(errorMessage != null){
+                    <span class="error fs-6">{{errorMessage}}</span>
+
+                   }
+                </div>
            }
             <a href="#">Forget Your Password?</a>
             <button>Sign In</button>

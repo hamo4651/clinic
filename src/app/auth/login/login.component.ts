@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class LoginComponent {
   submit=false;
-
+  errorMessage="";
   constructor(private authService:AuthService , private route:Router){}
   login( loginForm:NgForm){
     this.submit=true;
@@ -22,7 +22,7 @@ export class LoginComponent {
       this.authService.login(loginForm.value.email,loginForm.value.password).subscribe({
         next: (response: any) => {
            console.log(response);
-           
+           if(response.data.Login.token){
           localStorage.setItem('token', response.data.Login.token);
           localStorage.setItem('name', response.data.Login.user.name)
           localStorage.setItem('id', response.data.Login.user.id)
@@ -33,7 +33,11 @@ export class LoginComponent {
           }
           this.authService.setUser(response.data.Login.user.name, response.data.Login.user.role);
           this.route.navigate(['/profile'])
-          },
+          }
+        else{
+          this.errorMessage= response.data.Login.error
+        }
+        },
           
         error: (error) => {
           

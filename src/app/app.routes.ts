@@ -13,6 +13,8 @@ import { NotFoundComponent } from './auth/not-found/not-found.component';
 import { SchedulesComponent } from './DoctorSchedule/schedules/schedules.component';
 import { scheduled } from 'rxjs';
 import { CreateScheduleComponent } from './DoctorSchedule/create-schedule/create-schedule.component';
+import { MyScheduleComponent } from './DoctorSchedule/my-schedule/my-schedule.component';
+import { UpdateScheduleComponent } from './DoctorSchedule/update-schedule/update-schedule.component';
 
 export const routes: Routes = [
     // //////////// Auth routes  ///////////
@@ -55,6 +57,16 @@ export const routes: Routes = [
         path: 'create_schedule',
         component:CreateScheduleComponent
         ,title:'create_schedule',canActivate:[authGuard]
+    },
+    {
+        path: 'myschedule',
+        component:MyScheduleComponent
+        ,title:'myschedule',canActivate:[authGuard]
+    },
+    {
+        path: 'updateschedule/:id',
+        component:UpdateScheduleComponent
+        ,title:'updateschedule',canActivate:[authGuard]
     }
     // ////////// // Other routes //////////////
     ,{
