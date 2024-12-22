@@ -20,6 +20,7 @@ export class ScheduleService {
        start_time
        end_time
        day
+       is_reserved
        doctor{
        user{
        id
@@ -42,19 +43,21 @@ export class ScheduleService {
     doctor_id: string,
     start_time: string,
     end_time: string,
-    day: string
+    day: string,
+    duration: number
   ) {
     const token = localStorage.getItem('token');
     const headers = new HttpHeaders({
       Authorization: `Bearer ${token}`,
     });
     const mutation = `
-   mutation CreateSchedule($doctor_id: ID!, $start_time: Time!, $end_time: Time!, $day: String!){
-     createDoctorSchedule(doctor_id: $doctor_id, start_time: $start_time, end_time: $end_time, day: $day){
+   mutation CreateSchedule($doctor_id: ID!, $start_time: Time!, $end_time: Time!, $day: String!, $duration: Int!) {
+     createDoctorSchedule(doctor_id: $doctor_id, start_time: $start_time, end_time: $end_time, day: $day, duration: $duration) {
        id
        start_time
        end_time
        day
+       duration
        doctor{
          id
          specialization
@@ -77,6 +80,7 @@ export class ScheduleService {
           start_time: start_time,
           end_time: end_time,
           day: day,
+          duration: duration,
         },
       },
       { headers }
@@ -97,6 +101,7 @@ export class ScheduleService {
        start_time
        end_time
        day
+       is_reserved
       }
   }
   }`;

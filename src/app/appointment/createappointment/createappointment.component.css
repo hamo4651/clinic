@@ -1,0 +1,24 @@
+.container {
+    max-width: 50%;
+    margin: auto;
+  }
+  
+  form {
+    background-color: #f9f9f9;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    color: #007bff;
+  }
+  
+  .btn {
+    display: block;
+    width: 100%;
+  }
+  

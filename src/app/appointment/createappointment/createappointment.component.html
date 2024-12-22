@@ -1,0 +1,77 @@
+<div class="container mt-5">
+    <h2>Create Appointment</h2>
+    <label for="specialization" class="form-label"><strong>Doctor Specialization</strong></label>
+
+     <select name="specialization" [(ngModel)]="specialization" class="form-select" id="specialization" (change)="onSpecializationChange($event)">
+        <option value="" disabled selected>select specialization</option>
+          <option class="fs-6 px-1 text-dark" *ngFor="let specialization of specializations" [value]="specialization">{{specialization}}</option>
+    </select>
+    <form (ngSubmit)="onSubmit()" [formGroup]="appointmentForm" class="p-4 border rounded shadow-sm">
+
+      <div class="form-group mb-3">
+       
+        <label for="doctor_id" class="form-label"><strong>Doctor</strong></label>
+        <select
+          id="doctor_id"
+          class="form-select"
+          formControlName="doctor_id"
+          (change)="onDoctorChange($event)"
+        >
+          <option value="" disabled selected>Select a doctor</option>
+          <option class="fs-6 px-1 text-dark" *ngFor="let doctor of doctors" [value]="doctor.id">
+            {{ doctor.user.name }}
+          </option>
+        </select>
+        <div *ngIf="appointmentForm.get('doctor_id')?.invalid && appointmentForm.get('doctor_id')?.touched" class="text-danger">
+          Doctor is required.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="schedule_id" class="form-label"><strong>Schedule</strong></label>
+        <select
+          id="schedule_id"
+          class="form-control"
+          formControlName="schedule_id"
+         
+          (change)="onScheduleChange($event)"
+        >
+          <option value="" disabled selected>Select a schedule</option>
+          <option *ngFor="let schedule of schedules" [value]="schedule.id">
+            {{ schedule.day }}: {{ schedule.start_time }} - {{ schedule.end_time }}
+          </option>
+        </select>
+        <div *ngIf="appointmentForm.get('schedule_id')?.invalid && appointmentForm.get('schedule_id')?.touched" class="text-danger">
+          Schedule is required.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="appointment_date" class="form-label"><strong>Appointment Time</strong></label>
+        <input
+          type="text"
+          name="appointment_date"
+          class="form-control"
+          formControlName="appointment_date"
+          [value]="appointment_date"
+        />
+        <div *ngIf="appointmentForm.get('appointment_date')?.invalid && appointmentForm.get('appointment_date')?.touched" class="text-danger">
+          Date is required and must be valid.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="notes" class="form-label"><strong>Notes</strong> (optional)</label>
+        <textarea
+          id="notes"
+          class="form-control"
+          rows="3"
+          formControlName="notes"
+          placeholder="Add any notes for the appointment..."
+        ></textarea>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="appointmentForm.invalid">Create Appointment</button>
+    </form>
+  </div>
+  

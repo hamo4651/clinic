@@ -9,9 +9,13 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   private graphqlUrl = 'http://127.0.0.1:8000/graphql'; //GraphQL API
 
-  private userName = new BehaviorSubject<string|null>(localStorage.getItem('name'));
+  private userName = new BehaviorSubject<string | null>(
+    localStorage.getItem('name')
+  );
   userName$ = this.userName.asObservable();
-  private userRole = new BehaviorSubject<string|null>(localStorage.getItem('role'));
+  private userRole = new BehaviorSubject<string | null>(
+    localStorage.getItem('role')
+  );
   userRole$ = this.userRole.asObservable();
   setUser(name: string, role: string) {
     localStorage.setItem('name', name);
@@ -119,24 +123,24 @@ export class AuthService {
       Authorization: `Bearer ${token}`,
     });
     const query = `
-query {
-profile{
-id
-name
-email
-image
-role
-doctor{
-id
-bio
-specialization
-clinic_address
-phone
-fee
-}
-}
-}
-`;
+      query {
+      profile{
+      id
+      name
+      email
+      image
+      role
+      doctor{
+      id
+      bio
+      specialization
+      clinic_address
+      phone
+      fee
+      }
+      }
+      }
+      `;
     return this.http.post(this.graphqlUrl, { query: query }, { headers });
   }
 

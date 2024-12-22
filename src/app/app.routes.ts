@@ -15,6 +15,11 @@ import { scheduled } from 'rxjs';
 import { CreateScheduleComponent } from './DoctorSchedule/create-schedule/create-schedule.component';
 import { MyScheduleComponent } from './DoctorSchedule/my-schedule/my-schedule.component';
 import { UpdateScheduleComponent } from './DoctorSchedule/update-schedule/update-schedule.component';
+import { AppointmentsComponent } from './appointment/appointments/appointments.component';
+import { doctorGuard } from './guard/doctor.guard';
+import { CreateappointmentComponent } from './appointment/createappointment/createappointment.component';
+import { MyappointmentComponent } from './appointment/myappointment/myappointment.component';
+import { DoctorappointmentsComponent } from './appointment/doctorappointments/doctorappointments.component';
 
 export const routes: Routes = [
     // //////////// Auth routes  ///////////
@@ -51,22 +56,44 @@ export const routes: Routes = [
     {
         path: 'schedules',
         component:SchedulesComponent
-        ,title:'schedules',canActivate:[authGuard]
+        ,title:'schedules',canActivate:[doctorGuard]
     },
     {
         path: 'create_schedule',
         component:CreateScheduleComponent
-        ,title:'create_schedule',canActivate:[authGuard]
+        ,title:'create_schedule',canActivate:[doctorGuard]
     },
     {
         path: 'myschedule',
         component:MyScheduleComponent
-        ,title:'myschedule',canActivate:[authGuard]
+        ,title:'myschedule',canActivate:[doctorGuard]
     },
     {
         path: 'updateschedule/:id',
         component:UpdateScheduleComponent
-        ,title:'updateschedule',canActivate:[authGuard]
+        ,title:'updateschedule',canActivate:[doctorGuard]
+    },
+    {
+        path: 'appointments',
+        component:AppointmentsComponent
+        ,title:'appointments',canActivate:[adminGuard]
+    },
+    {
+        path: 'createappointment',
+        component:CreateappointmentComponent
+        ,title:'createappointment',canActivate:[authGuard]
+    }
+    ,
+    {
+        path: 'myappointment',
+        component:MyappointmentComponent
+        ,title:'myappointment',canActivate:[authGuard]
+    }
+    ,
+    {
+        path: 'doctorappointment',
+        component:DoctorappointmentsComponent
+        ,title:'doctorappointment',canActivate:[doctorGuard]
     }
     // ////////// // Other routes //////////////
     ,{

@@ -16,13 +16,14 @@ export class CreateScheduleComponent {
   start_time: string = ''; // Start time input
   end_time: string = ''; // End time input
   day: string = ''; // Selected day
+  duration: number = 30;
   constructor( private scheduleService: ScheduleService,private router: Router) { }
 
 
 
  onSubmit() {
-    if (this.start_time && this.end_time && this.day && this.doctor_id) {
-      this.scheduleService.createSchedule(this.doctor_id, this.start_time, this.end_time, this.day)
+    if (this.start_time && this.end_time && this.day && this.doctor_id && this.duration) {
+      this.scheduleService.createSchedule(this.doctor_id, this.start_time, this.end_time, this.day, this.duration)
         .subscribe({
           next: (response:any) => {
             console.log('Schedule created successfully', response);
