@@ -30,7 +30,7 @@ class Login
         $user = User::where('email', $args['email'])->first();
         if (!$user || !Hash::check($args['password'], $user->password)) {
             return [
-                'error' => 'The provided credentials are incorrect.',
+                'error' => 'email or password is incorrect.',
             ];
         }
         else{

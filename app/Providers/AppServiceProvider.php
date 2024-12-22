@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Observers\DoctorObserver;
 use GraphQL\Type\Definition\Type;
@@ -28,5 +29,6 @@ class AppServiceProvider extends ServiceProvider
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
         });
         Doctor::observe(DoctorObserver::class);
+        Appointment::observe(new \App\Observers\appointmentobserver());
     }
 }

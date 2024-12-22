@@ -11,9 +11,13 @@ class Schedule extends Model
         'day',
         'start_time',
         'end_time',
+        'duration',
     ];
     public function doctor()
     {
         return $this->belongsTo(Doctor::class);
+    }
+    public function appointments(){
+        return $this->hasMany(Appointment::class);
     }
 }

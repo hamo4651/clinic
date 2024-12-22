@@ -21,11 +21,12 @@ type Query {
     #  //////////// dotor////////
     doctor(id: ID @eq): Doctor! @find
     doctors: [Doctor!]! @all
+    getdoctorwithspecialization(specialization: String ): [Doctor!]! @field(resolver: "App\\GraphQL\\Mutations\\Doctorspet")
     # ////////////Appointment/////////////
-    appointments: [Appointment!]! @paginate
+    appointments: [Appointment!]! @all
     appointment(id: ID! @eq): Appointment @find
     # ///////////Schedule/////////////
-    schedules: [Schedule!]! @paginate
+    schedules: [Schedule!]! @all
     schedule(id: ID! @eq): Schedule @find
     # //////////////////////////
 }
@@ -68,32 +69,37 @@ type Mutation {
 
     delete_doctor(id: ID! @whereKey): Doctor @delete
     # /////////////Appointment////////////////////
-    createAppointment(
-        doctor_id: ID!
-        user_id: ID!
-        appointment_date: DateTime!
-        notes: String
-        status: String
-    ): Appointment @create
+   createAppointment(
+    doctor_id: ID! @rules(apply: ["exists:doctors,id"]),
+    user_id: ID! @rules(apply: ["exists:users,id"]),
+    appointment_date: Time! @rules(apply: ["required"]),
+    notes: String,
+    status: String @rules(apply: ["in:pending,confirmed,cancelled,completed"]),
+    schedule_id: ID! @rules(apply: ["exists:schedules,id"])
+): Appointment @create
+
     updateAppointment(
         id: ID!
         doctor_id: ID!
         user_id: ID!
-        appointment_date: DateTime!
+        appointment_date: Time!
         notes: String
         status: String
+        schedule_id:ID!
     ): Appointment @update
     deleteAppointment(id: ID! @whereKey): Appointment @delete
     # /////////////////DoctorSchedule////////////////
     createDoctorSchedule(
         doctor_id: ID!
-        day: String!
+        day: String! 
         start_time: Time!
         end_time: Time!
-    ): Schedule @create
+        is_reserved: Boolean
+        duration: Int!  # مدة الكشف بالدقائق
+    ): [Schedule!]! @field(resolver: "App\\GraphQL\\Mutations\\CreateDoctorSchedule")
     updateDoctorSchedule(
         id: ID!
-        doctor_id: ID!
+        # doctor_id: ID!
         day: String!
         start_time: Time!
         end_time: Time!
@@ -129,11 +135,12 @@ type Doctor {
 }
 type Appointment {
     id: ID!
-    appointment_date: DateTime!
+    appointment_date: Time!
     notes: String
     status: String
     user: User @belongsTo
     doctor: Doctor @belongsTo
+    schedule: Schedule @belongsTo
 }
 type Schedule {
     id: ID!
@@ -141,6 +148,8 @@ type Schedule {
     day: String!
     start_time: Time!
     end_time: Time!
+    is_reserved: Boolean
+    duration: Int!  # مدة الكشف بالدقائق
 }
 type AuthPayload {
     token: String

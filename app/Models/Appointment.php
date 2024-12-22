@@ -13,6 +13,7 @@ class Appointment extends Model
         'appointment_date',
         'notes',
         'status',
+        'schedule_id'
     ];
 
     public function doctor()
@@ -20,10 +21,12 @@ class Appointment extends Model
         return $this->belongsTo(Doctor::class);
     }
 
-    // علاقة مع جدول المستخدمين (المرضى)
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class);
+    }
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
 }
