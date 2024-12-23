@@ -17,12 +17,17 @@
         <div class="appointment-card col-md-6" *ngFor="let appointment of appointments">
           <div class="appointment-header">
             <h5 class="patient-name">🧑‍⚕️ Patient Name : {{ appointment.user.name }}</h5>
+            @if( appointment.status ==="pending"){
+            <button (click)="confirmedAccept(appointment.id)" class="btn btn-success">Complete </button>
+            }
+            @else{
             <button (click)="confirmedDelete(appointment.id)" class="btn btn-danger">remove</button>
+            }
           </div>
           <div class="appointment-body">
             <p class="patient-email"><strong>Patient Email: </strong> {{ appointment.user.email }}</p>
 
-            <p><strong>Date:</strong> {{ appointment.appointment_date }}</p>
+            <p><strong>Time:</strong> {{ appointment.appointment_date }}</p>
             <p><strong>Day:</strong> {{ appointment.schedule?.day }}</p>
             <p><strong>Status:</strong> 
               <span class="status {{ appointment.status | lowercase }}">

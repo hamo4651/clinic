@@ -17,11 +17,11 @@ appointments: any[] = [];
     this.getAllAppointments();
   }
   getAllAppointments() {
-    console.log(this.doctor_id);
+    // console.log(this.doctor_id);
     
     this.appointmentservice.getdoctorappointments(String(this.doctor_id)).subscribe((data: any) => {
       this.appointments = data.data.doctor.appointments;
-      console.log(data.data);
+      // console.log(data.data);
       
     });
   }
@@ -36,5 +36,18 @@ appointments: any[] = [];
 // console.log(data);
 
     })
+}
+confirmedAccept(id:string){
+  if(confirm("Are you sure that this appointment is completed?")){
+    this.AcceptAppointment(id);
+  }
+}
+AcceptAppointment(id:string){
+  
+  this.appointmentservice.updateStatus(id,"completed").subscribe((data)=>{
+    console.log(data);
+    this.getAllAppointments();
+
+  })
 }
 }

@@ -94,6 +94,11 @@ export const routes: Routes = [
         path: 'doctorappointment',
         component:DoctorappointmentsComponent
         ,title:'doctorappointment',canActivate:[doctorGuard]
+    },
+    {
+        path: 'myappointment',
+        component:MyappointmentComponent
+        ,title:'myappointment',canActivate:[authGuard]
     }
     // ////////// // Other routes //////////////
     ,{

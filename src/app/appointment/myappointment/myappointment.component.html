@@ -1,1 +1,42 @@
-<p>myappointment works!</p>
+<div class="appointments-container">
+    <h2 class="title">My Appointments</h2>
+  
+    <!-- Display a loading message or fallback if there are no appointments -->
+    <div *ngIf="appointments.length === 0; else appointmentsList" class="empty-state">
+      <p>No appointments available at the moment.</p>
+    </div>
+  
+    <!-- Appointments List -->
+    <ng-template #appointmentsList>
+        
+
+          
+      <div class="appointments-list">
+        <div class="row g-2">
+
+        <div class="appointment-card col-md-6" *ngFor="let appointment of appointments">
+          <div class="appointment-header">
+            <h5 class="patient-name">🧑‍⚕️ Doctor Name : {{ appointment.doctor.user.name }}</h5>
+            <button (click)="confirmedDelete(appointment.id)" class="btn btn-danger">Cancel</button>
+          </div>
+          <div class="appointment-body">
+            <p class="patient-email"><strong>Doctor Specialization: </strong> {{ appointment.doctor.pecialization }}</p>
+            <p class="patient-email"><strong>Clinic Address: </strong> {{ appointment.doctor.clinic_address }}</p>
+            <p class="patient-email"><strong>fee: </strong> {{ appointment.doctor.fee }}</p>
+            <p class="patient-email"><strong>phone: </strong> {{ appointment.doctor.phone }}</p>
+
+            <p><strong>Time:</strong> {{ appointment.appointment_date }}</p>
+            <p><strong>Day:</strong> {{ appointment.schedule?.day }}</p>
+            <p><strong>Status:</strong> 
+              <span class="status {{ appointment.status | lowercase }}">
+                {{ appointment.status }}
+              </span>
+            </p>
+            <p><strong>Notes:</strong> {{ appointment.notes }}</p>
+          </div>
+        </div>
+      </div>
+</div>
+    </ng-template>
+  </div>
+  

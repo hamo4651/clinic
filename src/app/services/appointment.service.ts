@@ -144,6 +144,7 @@ export class AppointmentService {
       { headers }
     );
   }
+  
  getdoctorappointments(doctor_id: string) {
   const token = localStorage.getItem('token');
   const headers = new HttpHeaders({
@@ -177,6 +178,60 @@ export class AppointmentService {
     { headers }
   );
 
+}
+getUserAppointment(id:string){
+  const token = localStorage.getItem('token');
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`,
+  });
+  const query = `
+  query getUserAppointment($id:ID){
+  user(id:$id){
+   appointments{
+     id
+     appointment_date
+     notes
+     status
+     schedule{
+        day     
+      }
+        doctor{
+        id
+        specialization
+        clinic_address
+        fee
+        phone
+        user{
+        name
+        }
+        }
+
 }}
+  
+  }
+  `;
+  const variables ={id:id};
+  return this.http.post(this.graphqlUrl,{query:query, variables:variables},{headers})
+  
+  }
+
+  updateStatus(id:string,status:string){
+    const token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+     const mutation =`
+     mutation updateStatus($id:ID!,$status:String){
+      updateAppointment(id:$id,status:$status){
+      id
+      status
+      }
+     } 
+     `;  
+     const variables ={id:id,status:status}
+     return this.http.post(this.graphqlUrl,{query:mutation,variables:variables},{headers})
+  }
+
+}
 
 
