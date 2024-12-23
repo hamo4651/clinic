@@ -78,16 +78,17 @@ type Mutation {
     schedule_id: ID! @rules(apply: ["exists:schedules,id"])
 ): Appointment @create
 
-    updateAppointment(
-        id: ID!
-        doctor_id: ID!
-        user_id: ID!
-        appointment_date: Time!
-        notes: String
-        status: String
-        schedule_id:ID!
-    ): Appointment @update
+    # updateAppointment(
+    #     id: ID!
+    #     doctor_id: ID!
+    #     user_id: ID!
+    #     appointment_date: Time!
+    #     notes: String
+    #     status: String
+    #     schedule_id:ID!
+    # ): Appointment @update
     deleteAppointment(id: ID! @whereKey): Appointment @delete
+    updateAppointment(id: ID!, status: String): Appointment @field(resolver: "App\\GraphQL\\Mutations\\UpdateStatus")
     # /////////////////DoctorSchedule////////////////
     createDoctorSchedule(
         doctor_id: ID!

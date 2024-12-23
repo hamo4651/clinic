@@ -19,10 +19,11 @@ class appointmentobserver
     /**
      * Handle the Appointment "updated" event.
      */
-    public function updated(Appointment $appointment): void
+    public function Update(Appointment $appointment): void
     {
-        //
-    }
+        // $appointment->schedule->is_reserved = false;
+        // $appointment->schedule->save();  
+      }
 
     /**
      * Handle the Appointment "deleted" event.
